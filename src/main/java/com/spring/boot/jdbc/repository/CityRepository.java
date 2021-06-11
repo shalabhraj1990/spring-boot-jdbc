@@ -9,6 +9,8 @@ public interface CityRepository {
 
 	List<City> getAllCityByCountryCode(String countryCode);
 
+	List<City> getAllCityByCountryCode(List<String> countryCode);
+
 	int cityCount();
 
 	int getCityCountByCountryCode(final String countryCode);

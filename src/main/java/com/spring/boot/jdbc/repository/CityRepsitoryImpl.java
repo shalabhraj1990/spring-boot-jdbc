@@ -2,6 +2,7 @@ package com.spring.boot.jdbc.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,15 @@ public class CityRepsitoryImpl implements CityRepository {
 	@Override
 	public List<City> getAllCityByCountryCode(String countryCode) {
 		// TODO Auto-generated method stub
-		return cityTemplate.query("select * from city  where CountryCode = ?", new Object[] { countryCode },
-				new RowMapperImpl());
+		return cityTemplate.query("select * from city  where CountryCode = ?",
+				new RowMapperImpl(), new Object[] { countryCode });
+	}
+	
+	@Override
+	public List<City> getAllCityByCountryCode(List<String> countryCode) {
+		String query = "select * from city  where CountryCode in (%s)";
+		String inParameter = String.join(",", Collections.nCopies(countryCode.size(),"?"));
+		return cityTemplate.query(String.format(query, inParameter), new RowMapperImpl(),countryCode.toArray());
 	}
 
 	@Override
@@ -108,5 +116,7 @@ public class CityRepsitoryImpl implements CityRepository {
 
 		}
 	}
+
+
 
 }
