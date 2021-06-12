@@ -1,4 +1,4 @@
-package com.spring.boot.jdbc.repository;
+package com.spring.boot.jdbc.JdbcTemplate.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,7 +103,7 @@ public class CityRepsitoryImpl implements CityRepository {
 
 	}
 
-	static class RowMapperImpl implements RowMapper<City> {
+	public static class RowMapperImpl implements RowMapper<City> {
 		@Override
 		public City mapRow(ResultSet rs, int rowNum) throws SQLException {
 			City city = new City();

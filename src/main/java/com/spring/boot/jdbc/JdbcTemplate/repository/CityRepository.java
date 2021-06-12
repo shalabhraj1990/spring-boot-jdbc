@@ -1,4 +1,4 @@
-package com.spring.boot.jdbc.repository;
+package com.spring.boot.jdbc.JdbcTemplate.repository;
 
 import java.util.List;
 

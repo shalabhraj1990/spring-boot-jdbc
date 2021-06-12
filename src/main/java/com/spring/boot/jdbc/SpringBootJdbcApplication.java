@@ -1,5 +1,6 @@
 package com.spring.boot.jdbc;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -7,8 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.spring.boot.jdbc.JdbcTemplate.repository.CityRepsitoryImpl;
 import com.spring.boot.jdbc.modal.City;
-import com.spring.boot.jdbc.repository.CityRepsitoryImpl;
+import com.spring.boot.jdbc.namedparameterJdbcTemplate.repository.CityNamedParameterRepositoryImpl;
 
 @SpringBootApplication
 public class SpringBootJdbcApplication {
@@ -18,9 +20,16 @@ public class SpringBootJdbcApplication {
 	}
 
 	@Bean
-	public CommandLineRunner start(CityRepsitoryImpl cityRepsitoryImpl) {
+	public CommandLineRunner start(CityRepsitoryImpl cityRepsitoryImpl,
+			CityNamedParameterRepositoryImpl cityNamedParameterRepositoryImpl) {
 		return args -> {
 
+			City namedCity = cityNamedParameterRepositoryImpl.getCityById(30);
+			System.out.println("nameCity = " + namedCity.toString());
+			List<City> namedCityList =cityNamedParameterRepositoryImpl.getAllCityByCountryCode(Arrays.asList("ind","afg"));
+			namedCityList.forEach(System.out::println);
+			
+			
 			int cityCount = cityRepsitoryImpl.cityCount();
 			System.out.println("cityCount = " + cityCount);
 
